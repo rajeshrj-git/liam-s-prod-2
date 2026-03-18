@@ -6,6 +6,7 @@ import { Environment, Float, Sparkles, Html } from "@react-three/drei";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Tag, Zap, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
+import * as THREE from "three";
 
 function CyberneticCore() {
   const meshRef = useRef<THREE.Group>(null);
