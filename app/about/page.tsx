@@ -111,16 +111,16 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-2 relative h-[400px] lg:h-auto rounded-3xl overflow-hidden border border-white/10 glass-card">
-               {/* Google Maps iFrame */}
-             {/* Google Maps iFrame - Verkilambi, Tamil Nadu */}
-               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112061.09262729904!2d77.3012896338027!3d28.632977531737784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5a43173357b%3A0x37ffce30c87cc03f!2sNoida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1716300000000!5m2!1sen!2sin" 
-                className="absolute inset-0 w-full h-full" 
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3948.076474956475!2d77.28992637582333!3d8.295188450042062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04560e9f7fd71f%3A0x642341dd374b0cb7!2sVerkilambi%2C%20Tamil%20Nadu%20629166!5e0!3m2!1sen!2sin!4v1773874237381!5m2!1sen!2sin" 
+            width="600" 
+            height="450" 
+            style={{ border: 0 }} 
+            allowFullScreen={true} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+
 
             </div>
           </div>
