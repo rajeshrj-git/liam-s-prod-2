@@ -11,7 +11,7 @@ import * as THREE from "three";
 function CyberneticCore() {
   const meshRef = useRef<THREE.Group>(null);
 
-  useFrame((state) => {
+  useFrame((state: any) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.005;
       meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;

@@ -100,7 +100,7 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
         <ImageUploader
           existingImages={existingImages}
           onChange={setImages}
-          onRemoveExisting={(url) => setExistingImages(prev => prev.filter(u => u !== url))}
+          onRemoveExisting={(url: string) => setExistingImages((prev: string[]) => prev.filter((u: string) => u !== url))}
         />
       </div>
 
