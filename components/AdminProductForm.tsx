@@ -216,17 +216,17 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
 
       <div className="flex items-center gap-6 p-4 bg-black/50 rounded-xl border border-white/5">
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" {...register("is_featured")} className="w-5 h-5 accent-accent" />
+          <input type="checkbox" {...register("is_featured")} defaultChecked={initialData?.is_featured ?? false} className="w-5 h-5 accent-accent" />
           <span className="text-sm font-medium text-white">Featured Product</span>
         </label>
         
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" {...register("is_available")} className="w-5 h-5 accent-accent" />
+          <input type="checkbox" {...register("is_available")} defaultChecked={initialData?.is_available ?? true} className="w-5 h-5 accent-accent" />
           <span className="text-sm font-medium text-white">Available in Stock</span>
         </label>
 
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" {...register("is_sold")} className="w-5 h-5 accent-red-500" />
+          <input type="checkbox" {...register("is_sold")} defaultChecked={initialData?.is_sold ?? false} className="w-5 h-5 accent-red-500" />
           <span className="text-sm font-medium text-red-400">Mark as Sold Out</span>
         </label>
 

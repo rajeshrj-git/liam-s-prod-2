@@ -14,7 +14,6 @@ export default async function Home() {
     .from("products")
     .select("*")
     .eq("is_featured", true)
-    .eq("is_available", true)
     .limit(4);
 
   const features = [

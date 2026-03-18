@@ -9,7 +9,7 @@ export const revalidate = 60; // Revalidate every 60s
 
 async function ProductGrid({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const supabase = createClient();
-  let query = supabase.from("products").select("*").eq("is_available", true);
+  let query = supabase.from("products").select("*");
 
   if (searchParams.category) {
     query = query.eq("category", searchParams.category);
