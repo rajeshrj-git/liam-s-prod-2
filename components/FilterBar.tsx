@@ -15,9 +15,9 @@ export default function FilterBar() {
 
   const categories = [
     { id: "all", label: "All Items" },
-    { id: "laptop", label: "Laptops" },
-    { id: "desktop", label: "Desktops" },
-    { id: "accessory", label: "Accessories" },
+    { id: "raw", label: "Raw Honey" },
+    { id: "infused", label: "Infused Honey" },
+    { id: "gift", label: "Gift Sets" },
   ];
 
   const handleCategoryChange = (cat: string) => {

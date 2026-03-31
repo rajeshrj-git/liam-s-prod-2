@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   if (!product) return { title: "Product Not Found" };
   
   return {
-    title: `${product.name} | Jarvis Computer`,
-    description: product.description || `Buy refurbished ${product.name}`,
+    title: `${product.name} | Liam Products`,
+    description: product.description || `Buy premium ${product.name}`,
     openGraph: {
       images: product.images?.[0] ? [product.images[0]] : [],
     }
@@ -51,7 +51,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
     : 0;
 
   const prefilledMessage = encodeURIComponent(
-    `Hi Jarvis Computer! I'm interested in the [${product.name}] priced at ${formatPrice(product.price)}.\nLink: https://jarviscomputer.com/products/${product.id}`
+    `Hi Liam Products! I'm interested in the [${product.name}] priced at ${formatPrice(product.price)}.\nLink: https://liamproducts.com/products/${product.id}`
   );
   
   const whatsappLink = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${prefilledMessage}`;
@@ -60,9 +60,9 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
   const renderSpec = (label: string, value: string | null) => {
     if (!value) return null;
     return (
-      <div className="py-3 flex items-center justify-between border-b border-white/5 last:border-0">
-        <span className="text-gray-400">{label}</span>
-        <span className="font-medium text-white text-right max-w-[60%]">{value}</span>
+      <div className="py-3 flex items-center justify-between border-b border-gray-100 last:border-0">
+        <span className="text-gray-600">{label}</span>
+        <span className="font-medium text-gray-900 text-right max-w-[60%]">{value}</span>
       </div>
     );
   };
@@ -73,11 +73,11 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
         
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
           <ChevronRight size={14} />
-          <Link href="/products" className="hover:text-white transition-colors">Products</Link>
+          <Link href="/products" className="hover:text-gray-900 transition-colors">Products</Link>
           <ChevronRight size={14} />
-          <span className="text-white truncate">{product.name}</span>
+          <span className="text-gray-900 font-medium truncate">{product.name}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -92,12 +92,12 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
                 <ConditionBadge condition={product.condition} />
-                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider bg-white/5 px-2 py-1 rounded">
+                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wider bg-gray-100 px-2 py-1 rounded">
                   {product.brand}
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-bold font-serif text-gray-900 mb-4 leading-tight">
                 {product.name}
               </h1>
               
@@ -121,17 +121,17 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
             <div className="flex gap-4 mb-10">
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <div className="bg-green-500/20 text-green-400 p-1 rounded-full"><Check size={14}/></div>
-                In Stock
+                100% Pure & Natural
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-400">
-                <div className="bg-blue-500/20 text-blue-400 p-1 rounded-full"><Check size={14}/></div>
+                <div className="bg-accent/20 text-accent p-1 rounded-full"><Check size={14}/></div>
                 Quality Tested
               </div>
             </div>
 
-            <div className="mb-10 lg:sticky lg:top-24 bg-card/50 border border-white/10 rounded-2xl p-6 shadow-xl z-20">
-              <h3 className="text-xl font-bold text-white mb-4">Ready to Buy?</h3>
-              <p className="text-sm text-gray-400 mb-6">Contact us directly to confirm availability and discuss delivery options.</p>
+            <div className="mb-10 lg:sticky lg:top-24 bg-white/80 border border-gray-200 rounded-2xl p-6 shadow-xl z-20">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Ready to Buy?</h3>
+              <p className="text-sm text-gray-600 mb-6">Contact us directly to confirm availability and discuss delivery options.</p>
               {/* Warranty Flex Banner */}
               <div className="my-8 bg-gradient-to-r from-accent/20 to-transparent border border-accent/20 rounded-2xl p-6 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-accent/5 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
@@ -140,59 +140,50 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                     <ShieldCheck size={24} />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg leading-tight mb-1">Jarvis Protection Guarantee</h3>
-                    <p className="text-gray-300 text-sm">
-                      <strong className="text-accent">1 Week Testing Warranty</strong> + <strong className="text-accent">6 Month Service Warranty</strong> included on all sales. This is our biggest flex.
+                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam Quality Guarantee</h3>
+                    <p className="text-gray-600 text-sm">
+                      <strong className="text-accent">100% Pure & Natural</strong> + <strong className="text-accent">Sustainably Sourced</strong>. This is our promise.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* CTAs */}
-              {product.is_sold ? (
-                <div className="flex flex-col gap-4 mt-8">
-                  <button disabled className="w-full flex items-center justify-center gap-2 bg-red-500/10 text-red-500 border border-red-500/30 font-bold py-4 px-6 rounded-xl cursor-not-allowed">
-                    <span className="tracking-widest uppercase">Currently Sold Out</span>
-                  </button>
-                  <p className="text-center text-gray-500 text-sm">This specific unit has been sold. Check our other listings for similar devices.</p>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-4 mt-8">
-                  <a 
-                    href={whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold text-lg transition-transform hover:-translate-y-1 shadow-[0_0_15px_rgba(37,211,102,0.2)]"
-                  >
-                    <MessageCircle size={22} />
-                    WhatsApp Us Now
-                  </a>
-                  <a 
-                    href={`tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER || '+910000000000'}`}
-                    className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white py-4 rounded-xl font-bold transition-colors"
-                  >
-                    <Phone size={20} />
-                    Call {process.env.NEXT_PUBLIC_PHONE_NUMBER || "Us"}
-                  </a>
-                </div>
-              )}
+              <div className="flex flex-col gap-4 mt-8">
+                <a 
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold text-lg transition-transform hover:-translate-y-1 shadow-[0_0_15px_rgba(37,211,102,0.2)]"
+                >
+                  <MessageCircle size={22} />
+                  WhatsApp Us Now
+                </a>
+                <a 
+                  href={`tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER || '+910000000000'}`}
+                  className="w-full flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-900 py-4 rounded-xl font-bold transition-colors"
+                >
+                  <Phone size={20} />
+                  Call {process.env.NEXT_PUBLIC_PHONE_NUMBER || "Us"}
+                </a>
+              </div>
             </div>
 
             <div className="space-y-10 order-last lg:order-none mt-10 lg:mt-0">
               {product.description && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                     Description
                   </h3>
-                  <div className="text-gray-400 leading-relaxed whitespace-pre-wrap">
+                  <div className="text-gray-600 leading-relaxed whitespace-pre-wrap">
                     {product.description}
                   </div>
                 </div>
               )}
 
               <div>
-                <h3 className="text-2xl font-bold text-white mb-4">Technical Specifications</h3>
-                <div className="bg-black/50 border border-white/10 rounded-xl px-5 py-2">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <div className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-2">
                   {renderSpec("Processor", product.processor)}
                   {renderSpec("Memory (RAM)", product.ram)}
                   {renderSpec("Storage", product.storage)}

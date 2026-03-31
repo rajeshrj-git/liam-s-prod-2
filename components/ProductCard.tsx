@@ -18,8 +18,8 @@ export default function ProductCard({ product }: { product: Product }) {
   const hasDiscount = product.original_price && product.original_price > product.price;
 
   return (
-    <div className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full bg-card/80">
-      <Link href={`/products/${product.id}`} className="block relative aspect-[4/3] bg-black/40 overflow-hidden">
+    <div className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full bg-white">
+      <Link href={`/products/${product.id}`} className="block relative aspect-[4/3] bg-gray-100 overflow-hidden">
         {product.images && product.images.length > 0 ? (
           <Image
             src={product.images[0]}
@@ -35,38 +35,24 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
         <div className="absolute top-3 left-3 flex gap-2">
           {product.is_featured && (
-            <span className="bg-accent text-black text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+            <span className="bg-accent text-white shadow-sm text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">
               Featured
             </span>
           )}
           <ConditionBadge condition={product.condition} />
-          {product.is_sold && (
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-20 flex items-center justify-center transition-all duration-300">
-            <span className="text-red-500 font-black tracking-[0.2em] transform -rotate-12 text-2xl border-4 border-red-500 px-6 py-2 rounded-lg bg-black/60 shadow-[0_0_30px_rgba(239,68,68,0.5)]">
-              SOLD OUT
-            </span>
-          </div>
-        )}
-      </div>
+        </div>
       </Link>
 
-      <div className="p-5 flex flex-col flex-1">
-        <div className="text-xs text-gray-400 mb-2 uppercase tracking-wide font-medium">
+      <div className="p-5 flex flex-col flex-1 bg-white">
+        <div className="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">
           {product.brand} • {product.category}
         </div>
         <Link href={`/products/${product.id}`} className="block group-hover:text-accent transition-colors">
-          <h3 className="text-lg font-bold text-white mb-2 line-clamp-2">{product.name}</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
         </Link>
-        
-        {product.processor && (
-          <p className="text-sm text-gray-400 mb-4 line-clamp-2">
-            {product.processor} | {product.ram} RAM | {product.storage}
-          </p>
-        )}
-
-        <div className="mt-auto flex items-end justify-between pt-4 border-t border-white/5">
+        <div className="mt-auto flex items-end justify-between pt-4 border-t border-gray-100">
           <div>
-            <div className="text-xl font-bold text-white flex items-center gap-2">
+            <div className="text-xl font-bold text-gray-900 flex items-center gap-2">
               {formatPrice(product.price)}
             </div>
             {hasDiscount && (
@@ -78,7 +64,7 @@ export default function ProductCard({ product }: { product: Product }) {
           
           <Link
             href={`/products/${product.id}`}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-accent hover:text-black transition-all group/btn"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all group/btn"
           >
             <ArrowRight size={18} className="group-hover/btn:translate-x-0.5 transition-transform" />
           </Link>

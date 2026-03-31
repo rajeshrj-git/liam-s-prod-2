@@ -8,13 +8,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0a0a0a",
-        foreground: "#ededed",
-        card: "#111111",
+        background: "#F8FAFC",
+        foreground: "#1E293B",
+        card: "#FFFFFF",
         accent: {
-          DEFAULT: "#FF6B00",
-          hover: "#FF8C00",
+          DEFAULT: "#F59E0B",
+          hover: "#D97706",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        serif: ["var(--font-serif)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

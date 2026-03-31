@@ -220,24 +220,10 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           <span className="text-sm font-medium text-white">Featured Product</span>
         </label>
         
-        <label className="flex items-center gap-2 cursor-pointer">
+        <label className="flex items-center gap-2 cursor-pointer mr-auto">
           <input type="checkbox" {...register("is_available")} defaultChecked={initialData?.is_available ?? true} className="w-5 h-5 accent-accent" />
-          <span className="text-sm font-medium text-white">Available in Stock</span>
+          <span className="text-sm font-medium text-white">Available to Buy</span>
         </label>
-
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" {...register("is_sold")} defaultChecked={initialData?.is_sold ?? false} className="w-5 h-5 accent-red-500" />
-          <span className="text-sm font-medium text-red-400">Mark as Sold Out</span>
-        </label>
-
-        <div className="flex items-center gap-2 ml-auto">
-          <label className="text-sm font-medium text-white">Stock:</label>
-          <input
-            type="number"
-            {...register("stock_count", { valueAsNumber: true })}
-            className="w-20 bg-black border border-white/10 text-white rounded-lg px-2 py-1 text-center focus:outline-none focus:border-accent"
-          />
-        </div>
       </div>
 
       <button

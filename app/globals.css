@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 237, 237, 237;
-  --background-start-rgb: 10, 10, 10;
-  --background-end-rgb: 10, 10, 10;
+  --foreground-rgb: 30, 41, 59;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 248, 250, 252;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
 }
 
 @layer utilities {
   .glass-card {
-    @apply bg-card/80 backdrop-blur-md border border-white/10 transition-all duration-300;
+    @apply bg-white/90 backdrop-blur-md border border-gray-200 transition-all duration-300 shadow-sm;
   }
   .glass-card:hover {
-    @apply border-accent/50 shadow-[0_0_15px_rgba(255,107,0,0.15)];
+    @apply border-accent/50 shadow-[0_0_15px_rgba(245,158,11,0.15)];
   }
 }
