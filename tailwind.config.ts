@@ -8,12 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#F8FAFC",
-        foreground: "#1E293B",
+        background: "#FFF6E5",
+        foreground: "#3B2F2F",
         card: "#FFFFFF",
         accent: {
-          DEFAULT: "#F59E0B",
-          hover: "#D97706",
+          DEFAULT: "#E6A817",
+          hover: "#C99110",
         },
       },
       fontFamily: {

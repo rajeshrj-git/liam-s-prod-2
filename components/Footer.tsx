@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Hexagon, Phone, MapPin, Mail, Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
-  const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Liam Products";
+  const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Liam's Products";
   
   const quickLinks = [
     { name: "Home", href: "/" },
@@ -21,7 +21,7 @@ export default function Footer() {
                 <Hexagon size={20} className="stroke-[2.5]" />
               </div>
               <span className="font-bold font-serif text-xl tracking-tight text-gray-900 group-hover:text-accent transition-colors">
-                LIAM PRODUCTS
+                Liam's Products
               </span>
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">

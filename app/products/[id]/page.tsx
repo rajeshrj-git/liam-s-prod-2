@@ -140,9 +140,9 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                     <ShieldCheck size={24} />
                   </div>
                   <div>
-                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam Quality Guarantee</h3>
+                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam Purity Guarantee</h3>
                     <p className="text-gray-600 text-sm">
-                      <strong className="text-accent">100% Pure & Natural</strong> + <strong className="text-accent">Sustainably Sourced</strong>. This is our promise.
+                      <strong className="text-accent">100% Raw & Filtered</strong> + <strong className="text-accent">Laboratory Tested</strong>. This is our promise.
                     </p>
                   </div>
                 </div>
@@ -182,16 +182,14 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               )}
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Product Details</h3>
                 <div className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-2">
-                  {renderSpec("Processor", product.processor)}
-                  {renderSpec("Memory (RAM)", product.ram)}
-                  {renderSpec("Storage", product.storage)}
-                  {renderSpec("Display", product.display)}
-                  {renderSpec("Graphics", product.graphics)}
-                  {renderSpec("Battery Runtime", product.battery)}
-                  {renderSpec("Operating System", product.os)}
-                  {renderSpec("Color", product.color)}
+                  {renderSpec("Honey Type", product.honey_type)}
+                  {renderSpec("Net Weight", product.weight)}
+                  {renderSpec("Purity Level", product.purity)}
+                  {renderSpec("Harvest Region", product.origin)}
+                  {renderSpec("Harvest Season", product.harvest_season)}
+                  {renderSpec("Texture / Color", product.color_shade)}
                 </div>
               </div>
             </div>

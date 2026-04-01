@@ -109,8 +109,8 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           <label className="text-sm font-medium text-gray-300">Product Name *</label>
           <input
             {...register("name", { required: true })}
-            className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
-            placeholder="e.g. Dell Latitude E7470"
+            className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+            placeholder="e.g. Raw Acacia Honey"
           />
         </div>
 
@@ -127,11 +127,12 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           <label className="text-sm font-medium text-gray-300">Category *</label>
           <select
             {...register("category", { required: true })}
-            className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+            className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
           >
-            <option value="laptop">Laptop</option>
-            <option value="desktop">Desktop</option>
-            <option value="accessory">Accessory</option>
+            <option value="raw_honey">Raw Honey</option>
+            <option value="infused_honey">Infused Honey</option>
+            <option value="honeycomb">Honeycomb</option>
+            <option value="health_wellness">Health & Wellness</option>
           </select>
         </div>
 
@@ -154,9 +155,9 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Condition *</label>
+          <label className="text-sm font-medium text-gray-600">Product Quality *</label>
           <div className="flex gap-4">
-            {["good", "fair", "normal"].map((cond) => (
+            {["premium", "organic", "natural"].map((cond) => (
               <label key={cond} className="cursor-pointer relative flex items-center justify-center">
                 <input
                   type="radio"
@@ -165,11 +166,11 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
                   className="peer sr-only"
                 />
                 <div className={`
-                  px-4 py-2 rounded-full border border-white/10 text-sm font-medium capitalize text-gray-400
+                  px-4 py-2 rounded-full border border-gray-200 text-sm font-medium capitalize text-gray-500
                   peer-checked:border-accent peer-checked:text-white transition-all
-                  ${cond === 'good' ? 'peer-checked:bg-green-500/20 peer-checked:border-green-500/50' : 
-                    cond === 'fair' ? 'peer-checked:bg-yellow-500/20 peer-checked:border-yellow-500/50' : 
-                    'peer-checked:bg-orange-500/20 peer-checked:border-orange-500/50'}
+                  ${cond === 'premium' ? 'peer-checked:bg-[#E6A817] peer-checked:border-[#E6A817]' : 
+                    cond === 'organic' ? 'peer-checked:bg-green-600 peer-checked:border-green-600' : 
+                    'peer-checked:bg-amber-600 peer-checked:border-amber-600'}
                 `}>
                   {cond}
                 </div>
@@ -178,30 +179,30 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           </div>
         </div>
 
-        {/* Specs */}
+        {/* Honey Details */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Processor</label>
-          <input {...register("processor")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Honey Type (e.g. Acacia)</label>
+          <input {...register("honey_type")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">RAM</label>
-          <input {...register("ram")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Weight (e.g. 500g)</label>
+          <input {...register("weight")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Storage</label>
-          <input {...register("storage")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Purity Level (%)</label>
+          <input {...register("purity")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Display</label>
-          <input {...register("display")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Origin / Farm Location</label>
+          <input {...register("origin")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Graphics</label>
-          <input {...register("graphics")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Harvest Season</label>
+          <input {...register("harvest_season")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Color</label>
-          <input {...register("color")} className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
+          <label className="text-sm font-medium text-gray-600">Color / Texture</label>
+          <input {...register("color_shade")} className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent" />
         </div>
       </div>
 
@@ -214,15 +215,15 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
         />
       </div>
 
-      <div className="flex items-center gap-6 p-4 bg-black/50 rounded-xl border border-white/5">
+      <div className="flex flex-wrap items-center gap-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" {...register("is_featured")} defaultChecked={initialData?.is_featured ?? false} className="w-5 h-5 accent-accent" />
-          <span className="text-sm font-medium text-white">Featured Product</span>
+          <input type="checkbox" {...register("is_featured")} className="w-5 h-5 accent-accent" />
+          <span className="text-sm font-medium text-gray-900">Featured</span>
         </label>
         
         <label className="flex items-center gap-2 cursor-pointer mr-auto">
-          <input type="checkbox" {...register("is_available")} defaultChecked={initialData?.is_available ?? true} className="w-5 h-5 accent-accent" />
-          <span className="text-sm font-medium text-white">Available to Buy</span>
+          <input type="checkbox" {...register("is_available")} className="w-5 h-5 accent-accent" />
+          <span className="text-sm font-medium text-gray-900">Available</span>
         </label>
       </div>
 

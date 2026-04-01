@@ -35,11 +35,11 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-accent text-white p-2 rounded-lg group-hover:scale-105 transition-transform shadow-md">
-            <Hexagon size={24} className="stroke-[2.5]" />
+          <div className="bg-accent text-white p-1.5 rounded-md shadow-sm group-hover:scale-105 transition-transform">
+            <Hexagon size={20} className="stroke-[2.5]" />
           </div>
-          <span className="font-bold font-serif text-2xl tracking-tight text-gray-900 group-hover:text-accent transition-colors">
-            LIAM PRODUCTS
+          <span className="font-bold font-serif text-xl tracking-tight text-gray-900 group-hover:text-accent transition-colors">
+            Liam's Products
           </span>
         </Link>
 

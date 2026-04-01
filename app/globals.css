@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 30, 41, 59;
-  --background-start-rgb: 248, 250, 252;
-  --background-end-rgb: 248, 250, 252;
+  --foreground-rgb: 59, 47, 47;
+  --background-start-rgb: 255, 246, 229;
+  --background-end-rgb: 255, 246, 229;
 }
 
 body {
@@ -17,9 +17,9 @@ body {
 
 @layer utilities {
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-gray-200 transition-all duration-300 shadow-sm;
+    @apply bg-white/95 backdrop-blur-md rounded-[12px] border border-[#E6A817]/20 transition-all duration-300 shadow-[0_4px_20px_-4px_rgba(59,47,47,0.05)];
   }
   .glass-card:hover {
-    @apply border-accent/50 shadow-[0_0_15px_rgba(245,158,11,0.15)];
+    @apply border-accent/50 shadow-[0_8px_30px_-4px_rgba(230,168,23,0.15)] -translate-y-1;
   }
 }

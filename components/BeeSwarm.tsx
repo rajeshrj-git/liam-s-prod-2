@@ -185,13 +185,9 @@ function DetailedBee({ position, speedOffset }: { position: [number, number, num
 
 export default function BeeSwarm() {
   const bees = [
-    { pos: [0, 0, 0], offset: 0 },
     { pos: [2.5, 1.5, -1], offset: 1.2 },
     { pos: [-2, -1, 1], offset: 2.5 },
-    { pos: [1.5, -2, -2], offset: 3.8 },
-    { pos: [-1.5, 2, 2], offset: 5.1 },
     { pos: [3.5, -0.5, 0.5], offset: 6.4 },
-    { pos: [-3, 0.5, -1], offset: 7.7 },
   ];
 
   return (

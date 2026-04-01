@@ -1,6 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/ProductCard";
-import { ArrowRight, ShieldCheck, Tag, Zap, Cpu, Star, Headphones, Truck } from "lucide-react";
+import { ArrowRight, ShieldCheck, Leaf, Ban, HeartHandshake } from "lucide-react";
 import Image from "next/image";
 import { createClient } from "@/lib/supabaseServer";
 
@@ -17,10 +17,10 @@ export default async function Home() {
     .limit(4);
 
   const features = [
-    { icon: <ShieldCheck size={32}/>, title: "Quality Tested", desc: "Rigorous 50-point inspection on every device." },
-    { icon: <Zap size={32}/>, title: "Best Prices", desc: "Premium technology at unbeatable wholesale rates." },
-    { icon: <Headphones size={32}/>, title: "Expert Support", desc: "Dedicated team to help you choose right." },
-    { icon: <Truck size={32}/>, title: "Fast Delivery", desc: "Same day dispatch for all verified orders." },
+    { icon: <ShieldCheck size={32}/>, title: "100% Raw & Unprocessed", desc: "Straight from the hive, retaining all natural enzymes and nutrients." },
+    { icon: <Leaf size={32}/>, title: "Naturally Harvested", desc: "Sourced from pristine, untouched floral environments." },
+    { icon: <Ban size={32}/>, title: "No Preservatives", desc: "Absolutely no artificial additives, sugars, or chemicals." },
+    { icon: <HeartHandshake size={32}/>, title: "Ethical Beekeeping", desc: "Sustainably produced prioritizing the health of the bees." },
   ];
 
   return (
@@ -71,12 +71,6 @@ export default async function Home() {
               No featured products available right now.
             </div>
           )}
-          
-          <div className="mt-8 text-center md:hidden">
-            <a href="/products" className="inline-flex text-accent hover:text-accent-hover font-medium transition-colors">
-              View All Products &rarr;
-            </a>
-          </div>
         </div>
       </section>
 
