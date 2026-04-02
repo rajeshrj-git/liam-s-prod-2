@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </Link>
         <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-100">
           <div>
-            <div className="text-xl font-bold font-serif text-gray-900">
+            <div className="text-xl font-bold font-sans text-gray-900">
               {formatPrice(product.price)}
             </div>
             {hasDiscount && (

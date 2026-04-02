@@ -118,8 +118,8 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           <label className="text-sm font-medium text-gray-300">Brand *</label>
           <input
             {...register("brand", { required: true })}
-            className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
-            placeholder="e.g. Dell"
+            className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+            placeholder="e.g. Liam's Products"
           />
         </div>
 
@@ -141,18 +141,15 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
           <input
             type="number"
             {...register("price", { required: true, valueAsNumber: true })}
-            className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+            className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
           />
         </div>
         
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Original Price (INR)</label>
           <input
             type="number"
             {...register("original_price", { valueAsNumber: true })}
-            className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+            className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
           />
-        </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-600">Product Quality *</label>
@@ -211,7 +208,7 @@ export default function AdminProductForm({ initialData, onSuccess }: AdminProduc
         <textarea
           {...register("description")}
           rows={4}
-          className="w-full bg-black border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
+          className="w-full bg-white border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:border-accent"
         />
       </div>
 

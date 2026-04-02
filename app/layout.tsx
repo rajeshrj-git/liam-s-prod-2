@@ -19,6 +19,9 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Liam's Products | Premium Natural Honey",
   description: "High-quality, pure and natural honey collected directly from the finest sources.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

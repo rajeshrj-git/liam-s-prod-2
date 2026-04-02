@@ -52,7 +52,6 @@ export default function Footer() {
               <li><Link href="#" className="text-gray-600 hover:text-accent transition-colors text-sm">Purity Policy</Link></li>
               <li><Link href="#" className="text-gray-600 hover:text-accent transition-colors text-sm">Return Policy</Link></li>
               <li><Link href="#" className="text-gray-600 hover:text-accent transition-colors text-sm">FAQ</Link></li>
-              <li><Link href="/admin" className="text-gray-600 hover:text-accent transition-colors text-sm">Admin Login</Link></li>
             </ul>
           </div>
 

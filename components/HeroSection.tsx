@@ -8,10 +8,9 @@ import { ArrowRight, ShieldCheck, Tag, Zap, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 
-import BeeSwarm from "./BeeSwarm";
-
 export default function HeroSection() {
-  const whatsappLink = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=Hi Liam Products! I'm interested in looking at your premium honey.`;
+  const whatsappNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, "");
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi Liam Products! I'm interested in looking at your premium honey.`;
 
   return (
     <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden bg-background">
@@ -25,8 +24,6 @@ export default function HeroSection() {
           <ambientLight intensity={0.8} />
           <directionalLight position={[10, 10, 5]} intensity={1.5} color="#FFC107" />
           
-          <BeeSwarm />
-
           <Sparkles count={300} scale={10} size={2} speed={0.4} opacity={0.5} color="#FBB901" />
         </Canvas>
       </div>
