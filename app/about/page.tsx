@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="text-center mb-16 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent/20 rounded-full blur-[50px] pointer-events-none" />
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black font-serif text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500 mb-6 tracking-tight">
-            The <span className="text-accent">Liam Products</span> Story
+            The <span className="text-accent">Liam's Products</span> Story
           </h1>
           <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
             We believe premium honey shouldn't cost a fortune. Our mission is to provide high-quality, pure natural honey with unmatched quality and taste.
@@ -28,7 +28,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold font-serif text-gray-900 mb-6">Built on Trust & Transparency</h2>
             <div className="space-y-6 text-gray-700 leading-relaxed text-lg">
               <p>
-                At Liam Products, we don't just sell honey; we build relationships. Every batch that leaves our store goes through a rigorous quality inspection to ensure it is pure and unadulterated.
+                At Liam's Products, we don't just sell honey; we build relationships. Every batch that leaves our store goes through a rigorous quality inspection to ensure it is pure and unadulterated.
               </p>
               <p>
                 What really sets us apart is our <strong>Liam Quality Guarantee</strong>. We understand the importance of consuming natural ingredients, which is why we offer a 100% Purity Guarantee. This is our commitment to your health.
@@ -54,14 +54,14 @@ export default function AboutPage() {
             <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden border border-gray-200 group">
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
               <img 
-                src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=800" 
-                alt="Jarvis Computer Founder" 
+                src="/favicon.png" 
+                // alt="Jarvis Computer Founder" 
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent z-20">
+              {/* <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent z-20">
                 <h3 className="text-2xl font-bold text-white">Nino Issac</h3>
                 <p className="text-accent font-medium">Founder</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -97,15 +97,7 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="text-accent" size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">Email</h4>
-                      <p className="text-gray-600">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@liamproducts.in"}</p>
-                    </div>
-                  </div>
+                  {/* Email section removed entirely */}
                 </div>
               </div>
             </div>

@@ -23,7 +23,7 @@ export default function ProductCarousel({ images, altText }: { images: string[];
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/10 bg-black shadow-xl">
+      <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-gray-100 shadow-xl bg-gray-50 relative">
         <Swiper
           spaceBetween={10}
           navigation={true}
@@ -33,12 +33,21 @@ export default function ProductCarousel({ images, altText }: { images: string[];
         >
           {images.map((src, idx) => (
             <SwiperSlide key={idx}>
-              <div className="relative w-full h-full flex items-center justify-center">
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0 select-none pointer-events-none">
+                  <Image
+                    src={src}
+                    alt="Background blur"
+                    fill
+                    className="object-cover blur-[40px] scale-125 opacity-50"
+                    priority={idx === 0}
+                  />
+                </div>
                 <Image
                   src={src}
                   alt={`${altText} image ${idx + 1}`}
                   fill
-                  className="object-contain p-4"
+                  className="object-contain p-4 z-10 drop-shadow-2xl"
                   priority={idx === 0}
                 />
               </div>
@@ -59,7 +68,7 @@ export default function ProductCarousel({ images, altText }: { images: string[];
             className="h-full w-full custom-thumbs"
           >
             {images.map((src, idx) => (
-              <SwiperSlide key={idx} className="opacity-50 cursor-pointer rounded-lg overflow-hidden border border-white/10 [&.swiper-slide-thumb-active]:border-accent [&.swiper-slide-thumb-active]:opacity-100 transition-all bg-card">
+              <SwiperSlide key={idx} className="opacity-50 cursor-pointer rounded-lg overflow-hidden border border-gray-200 [&.swiper-slide-thumb-active]:border-accent [&.swiper-slide-thumb-active]:border-2 [&.swiper-slide-thumb-active]:opacity-100 transition-all bg-white shadow-sm hover:opacity-80">
                 <div className="relative w-full h-full">
                   <Image
                     src={src}

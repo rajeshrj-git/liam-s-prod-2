@@ -32,8 +32,8 @@ export default async function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200">
             <div className="flex-1 w-full pt-4 md:pt-0">
-              <h3 className="text-4xl font-bold font-serif text-gray-900 mb-2">50+</h3>
-              <p className="text-gray-600 uppercase tracking-wider text-sm">Jars Sold</p>
+              <h3 className="text-4xl font-bold font-serif text-gray-900 mb-2">500+</h3>
+              <p className="text-gray-600 uppercase tracking-wider text-sm">Sold</p>
             </div>
             <div className="flex-1 w-full pt-6 md:pt-0">
               <h3 className="text-4xl font-bold font-serif text-gray-900 mb-2">100%</h3>
@@ -80,7 +80,7 @@ export default async function Home() {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold font-serif text-gray-900 mb-6">Why Choose Liam Products?</h2>
+            <h2 className="text-3xl md:text-5xl font-bold font-serif text-gray-900 mb-6">Why Choose Liam's Products?</h2>
             <p className="text-gray-600 text-lg">
               We eliminate the risk of adulterated honey by offering 100% pure, lab-tested, naturally sourced honey that tastes incredible.
             </p>

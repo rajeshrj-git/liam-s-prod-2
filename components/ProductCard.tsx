@@ -39,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link href={`/products/${product.id}`} className="block group-hover:text-accent transition-colors">
           <h3 className="text-lg font-bold text-gray-900 mb-4 line-clamp-2">{product.name}</h3>
         </Link>
-        <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-100">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-gray-100">
           <div>
             <div className="text-xl font-bold font-sans text-gray-900">
               {formatPrice(product.price)}
@@ -53,7 +53,7 @@ export default function ProductCard({ product }: { product: Product }) {
           
           <Link
             href={`/products/${product.id}`}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-medium text-sm hover:bg-accent-hover transition-all shadow-md shadow-accent/20"
+            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-medium text-sm hover:bg-accent-hover transition-all shadow-md shadow-accent/20 flex-shrink-0"
           >
             View Details
             <ArrowRight size={16} />

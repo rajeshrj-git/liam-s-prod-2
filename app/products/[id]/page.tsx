@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   if (!product) return { title: "Product Not Found" };
   
   return {
-    title: `${product.name} | Liam Products`,
+    title: `${product.name} | Liam's Products`,
     description: product.description || `Buy premium ${product.name}`,
     openGraph: {
       images: product.images?.[0] ? [product.images[0]] : [],
@@ -54,7 +54,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
   if (waNumber.length === 10) waNumber = `91${waNumber}`; // Prepend India code if missing
 
   const prefilledMessage = encodeURIComponent(
-    `Hi Liam Products! I'm interested in the [${product.name}] priced at ${formatPrice(product.price)}.\n\nLink: https://liamproducts.in`
+    `Hi Liam's Products! I'm interested in the [${product.name}] priced at ${formatPrice(product.price)}.\n\nLink: https://liamsproducts.in`
   );
   
   const whatsappLink = `https://wa.me/${waNumber}?text=${prefilledMessage}`;
@@ -104,12 +104,12 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 {product.name}
               </h1>
               
-              <div className="flex items-end gap-4 mb-6">
+              <div className="flex flex-wrap items-end gap-x-4 gap-y-2 mb-6">
                 <div className="text-4xl text-accent font-bold tracking-tight">
                   {formatPrice(product.price)}
                 </div>
                 {hasDiscount && (
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className="text-xl text-gray-500 line-through">
                       {formatPrice(product.original_price!)}
                     </span>
@@ -121,7 +121,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </div>
             </div>
 
-            <div className="flex gap-4 mb-10">
+            <div className="flex flex-wrap gap-4 mb-10">
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <div className="bg-green-500/20 text-green-400 p-1 rounded-full"><Check size={14}/></div>
                 100% Pure & Natural
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </div>
             </div>
 
-            <div className="mb-10 lg:sticky lg:top-24 bg-white/80 border border-gray-200 rounded-2xl p-6 shadow-xl z-20">
+            <div className="mb-10 bg-white/80 border border-gray-200 rounded-2xl p-6 shadow-xl z-20">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Ready to Buy?</h3>
               <p className="text-sm text-gray-600 mb-6">Contact us directly to confirm availability and discuss delivery options.</p>
               {/* Warranty Flex Banner */}
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                     <ShieldCheck size={24} />
                   </div>
                   <div>
-                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam Purity Guarantee</h3>
+                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam's Purity Guarantee</h3>
                     <p className="text-gray-600 text-sm">
                       <strong className="text-accent">100% Raw & Filtered</strong> + <strong className="text-accent">Laboratory Tested</strong>. This is our promise.
                     </p>
