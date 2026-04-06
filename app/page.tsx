@@ -10,11 +10,41 @@ export default async function Home() {
   const supabase = createClient();
   
   // Fetch featured products
-  const { data: featuredProducts } = await supabase
+  const { data: fetchedProducts } = await supabase
     .from("products")
     .select("*")
     .eq("is_featured", true)
-    .limit(4);
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const featuredProducts = fetchedProducts ? [...fetchedProducts] : [];
+
+  // Hardcoded Coming Soon Product
+  const comingSoonProduct: any = {
+    id: "coming-soon-sticks",
+    name: "BeeKiss Honey Sticks",
+    brand: "Liam's Products",
+    category: "raw_honey",
+    price: 0,
+    original_price: null,
+    condition: "premium",
+    is_sold: false,
+    weight: "10 Sticks",
+    purity: "100% Pure",
+    origin: "Farm Selected",
+    honey_type: "Raw",
+    color_shade: null,
+    harvest_season: null,
+    description: "Convenient raw honey sticks perfect for on-the-go sweetness.",
+    images: ["/stick.png"], // User added stick.png to public directory
+    is_featured: true,
+    is_available: false, // Triggers our "Coming Soon" UI
+    stock_count: 0,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  };
+
+  featuredProducts.push(comingSoonProduct);
 
   const features = [
     { icon: <ShieldCheck size={32}/>, title: "100% Raw & Unprocessed", desc: "Straight from the hive, retaining all natural enzymes and nutrients." },
