@@ -62,18 +62,19 @@ create table products (
 
 create table orders (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid, -- For public users / auth.users
-  product_id uuid references products(id),
-  quantity integer not null,
+  user_id uuid references auth.users,
+  items jsonb not null,
+  total_quantity integer not null,
+  subtotal numeric not null,
+  delivery_type text not null,
+  delivery_charge numeric,
+  distance_km numeric,
   total_amount numeric not null,
-  status text not null default 'Pending', -- Pending, Confirmed, Cancelled
-  name text not null,
-  address text not null,
-  phone text not null,
-  delivery_type text not null, -- Home Delivery, Store Pickup
-  distance_km integer,
+  delivery_address jsonb,
   razorpay_order_id text,
   razorpay_payment_id text,
+  payment_status text default 'pending',
+  order_status text default 'confirmed',
   created_at timestamp default now(),
   updated_at timestamp default now()
 );

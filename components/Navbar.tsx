@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShoppingBag, Hexagon, Menu, X, MessageCircle, ShoppingCart } from "lucide-react";
+import { ShoppingBag, Hexagon, Menu, X, MessageCircle, ShoppingCart, UserCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/store/cartStore";
+import { createClient } from "@/lib/supabase";
 
 function CartBadge() {
   const [mounted, setMounted] = useState(false);
@@ -28,6 +29,9 @@ function CartBadge() {
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  const supabase = createClient();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -36,12 +40,25 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      subscription.unsubscribe();
+    };
+  }, [supabase.auth]);
 
   let waNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, "");
   if (waNumber.length === 10) waNumber = `91${waNumber}`;
@@ -77,6 +94,15 @@ export default function Navbar() {
             <ShoppingCart size={24} />
             <CartBadge />
           </Link>
+          {user ? (
+            <Link href="/admin" className="text-gray-600 hover:text-accent transition-colors" title="My Account">
+              <UserCircle size={24} />
+            </Link>
+          ) : (
+            <Link href="/login" className="text-gray-600 hover:text-accent transition-colors" title="Log in">
+              <UserCircle size={24} />
+            </Link>
+          )}
           <a
             href={whatsappLink}
             target="_blank"
@@ -116,6 +142,25 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            {user ? (
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 text-gray-600 hover:text-accent font-medium p-2"
+              >
+                <UserCircle size={20} />
+                <span>My Account</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 text-gray-600 hover:text-accent font-medium p-2"
+              >
+                <UserCircle size={20} />
+                <span>Log In</span>
+              </Link>
+            )}
             <a
               href={whatsappLink}
               target="_blank"
