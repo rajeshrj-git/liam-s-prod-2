@@ -62,7 +62,7 @@ function RegisterContent() {
         setLoading(false);
       } else {
         toast.success("Account created successfully!");
-        router.push(redirectParams === "/shop" ? "/products" : redirectParams);
+        window.location.href = redirectParams === "/shop" ? "/products" : redirectParams;
       }
     } else {
       setLoading(false);

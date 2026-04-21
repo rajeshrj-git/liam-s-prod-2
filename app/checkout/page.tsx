@@ -29,19 +29,25 @@ export default function CheckoutPage() {
   });
 
   useEffect(() => {
-    if (items.length === 0) {
-      router.push("/cart");
-      return;
-    }
-
+    // Only fetch profile if items exist to save unnecessary calls.
+    // If items is empty, we handle it in the render.
+    let isMounted = true;
+    
     const fetchProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      
       if (!session) {
-        router.push("/login?redirect=/checkout");
+        if (isMounted) router.push("/login?redirect=/checkout");
         return;
       }
-      const { data } = await supabase.from("profiles").select("*").eq("id", session.user.id).single();
-      if (data) {
+      
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+        
+      if (data && isMounted) {
         setProfile({ ...data, email: session.user.email });
         setAddress({
           addressLine1: data.address_line1 || "",
@@ -51,10 +57,14 @@ export default function CheckoutPage() {
           pincode: data.pincode || "",
         });
       }
-      setLoading(false);
+      
+      if (isMounted) setLoading(false);
     };
+    
     fetchProfile();
-  }, [items.length, router]);
+    
+    return () => { isMounted = false; }
+  }, [router, supabase]);
 
   useEffect(() => {
     if (totalQty >= 5 && deliveryType === "door" && address.pincode.length >= 5) {
@@ -89,82 +99,110 @@ export default function CheckoutPage() {
 
     setProcessing(true);
     
-    // Create Razorpay Order
-    const res = await fetch("/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        items,
-        deliveryType,
-        deliveryCharge,
-        distanceKm,
-        address,
-      }),
-    });
-    
-    const data = await res.json();
-    if (!data.success) {
-      toast.error(data.error || "Failed to create order");
-      setProcessing(false);
-      return;
+    try {
+      // Create Razorpay Order
+      const res = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items,
+          deliveryType,
+          deliveryCharge,
+          distanceKm,
+          address,
+        }),
+      });
+      
+      const data = await res.json();
+      if (!data.success) {
+        toast.error(data.error || "Failed to create order");
+        setProcessing(false);
+        return;
+      }
+
+      const options = {
+        key: data.key,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Liam's Products",
+        description: "Premium Honey Purchase",
+        order_id: data.order.id,
+        handler: async function (response: any) {
+          // Verify Payment
+          try {
+            const verifyRes = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                orderData: data.dbOrder,
+              }),
+            });
+            const verifyData = await verifyRes.json();
+            if (verifyData.success) {
+              toast.success("Payment successful! Order placed.");
+              clearCart();
+              window.location.href = "/products";
+            } else {
+              toast.error("Payment verification failed");
+            }
+          } catch(e) {
+            toast.error("An error occurred during verification.");
+          }
+        },
+        prefill: {
+          name: profile?.full_name || "",
+          email: profile?.email || "",
+          contact: profile?.phone || "",
+        },
+        theme: { color: "#F59E0B" },
+      };
+
+      if (!(window as any).Razorpay) {
+        toast.error("Payment system is loading. Please try again in a moment.");
+        setProcessing(false);
+        return;
+      }
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        toast.error(response.error.description);
+      });
+      rzp.open();
+    } catch (e: any) {
+      console.error("Payment Error:", e);
+      toast.error("A network or configuration error occurred.");
+    } finally {
+      // Small timeout so user can't click immediately if processing succeeded.
+      // Wait, let's just reset mostly.
+      setTimeout(() => setProcessing(false), 500);
     }
-
-    const options = {
-      key: data.key,
-      amount: data.order.amount,
-      currency: "INR",
-      name: "Liam's Products",
-      description: "Premium Honey Purchase",
-      order_id: data.order.id,
-      handler: async function (response: any) {
-        // Verify Payment
-        const verifyRes = await fetch("/api/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-            orderData: data.dbOrder, // Passed back to verify endpoint
-          }),
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success) {
-          toast.success("Payment successful! Order placed.");
-          clearCart();
-          router.push("/products"); // or /orders
-        } else {
-          toast.error("Payment verification failed");
-        }
-      },
-      prefill: {
-        name: profile?.full_name || "",
-        email: profile?.email || "",
-        contact: profile?.phone || "",
-      },
-      theme: { color: "#F59E0B" },
-    };
-
-    const rzp = new (window as any).Razorpay(options);
-    rzp.on("payment.failed", function (response: any) {
-      toast.error(response.error.description);
-    });
-    rzp.open();
-    setProcessing(false);
   };
 
   if (loading) return <div className="min-h-screen pt-32 pb-20 text-center">Loading checkout...</div>;
+
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen pt-32 pb-20 bg-background flex flex-col items-center">
+        <h1 className="text-3xl font-bold font-serif mb-6">Your Cart is Empty</h1>
+        <p className="mb-6 text-gray-500">Please add some honey before proceeding to checkout.</p>
+        <button onClick={() => router.push("/products")} className="px-6 py-3 bg-accent text-white font-bold rounded-xl hover:bg-accent-hover transition-colors">
+          Browse Products
+        </button>
+      </div>
+    );
+  }
 
   const subtotal = getSubtotal();
   const totalAmount = subtotal + deliveryCharge;
 
   return (
-    <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-      <div className="min-h-screen pt-24 pb-20 bg-background flex flex-col md:flex-row container mx-auto px-4 gap-8">
-        
-        {/* Left Col: Details */}
-        <div className="md:w-2/3 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-fit">
+    <div className="min-h-screen pt-24 pb-20 bg-background flex flex-col md:flex-row container mx-auto px-4 gap-8">
+      
+      {/* Left Col: Details */}
+      <div className="md:w-2/3 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-fit">
           <h2 className="text-2xl font-bold font-serif mb-6">Delivery Details</h2>
           
           <div className="mb-6">
@@ -247,6 +285,5 @@ export default function CheckoutPage() {
           </button>
         </div>
       </div>
-    </>
   );
 }

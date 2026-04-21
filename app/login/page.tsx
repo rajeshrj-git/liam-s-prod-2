@@ -30,7 +30,7 @@ function LoginContent() {
       setLoading(false);
     } else {
       toast.success("Login successful");
-      router.push(redirectParams === "/shop" ? "/products" : redirectParams);
+      window.location.href = redirectParams === "/shop" ? "/products" : redirectParams;
     }
   };
 
