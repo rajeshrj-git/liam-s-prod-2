@@ -30,9 +30,33 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // We have moved the authentication guard to the Client Components directly 
-  // (app/admin/dashboard/page.tsx) to completely bypass Vercel Edge configuration 
-  // edge-cases where environment variables fail to load in time.
+  const { data: { session } } = await supabase.auth.getSession()
+
+  // Protect /admin and /checkout routes
+  if (
+    request.nextUrl.pathname.startsWith('/admin') ||
+    request.nextUrl.pathname.startsWith('/checkout')
+  ) {
+    if (!session) {
+      const redirectUrl = new URL('/login', request.url)
+      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    // For /admin, check if user is admin
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', session.user.id)
+        .single()
+
+      if (!profile?.is_admin) {
+        return NextResponse.redirect(new URL('/shop', request.url))
+      }
+    }
+  }
+
   return supabaseResponse
 }
 

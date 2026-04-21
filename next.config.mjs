@@ -16,6 +16,27 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'none';",
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

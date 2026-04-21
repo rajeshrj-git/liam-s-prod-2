@@ -4,6 +4,7 @@ import ProductCarousel from "@/components/ProductCarousel";
 import ConditionBadge from "@/components/ConditionBadge";
 import { Phone, MessageCircle, ChevronRight, Check, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import AddToCartButton from "@/components/AddToCartButton";
 import { Product } from "@/lib/types";
 import { Metadata } from "next";
 
@@ -132,44 +133,8 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </div>
             </div>
 
-            <div className="mb-10 bg-white/80 border border-gray-200 rounded-2xl p-6 shadow-xl z-20">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Ready to Buy?</h3>
-              <p className="text-sm text-gray-600 mb-6">Contact us directly to confirm availability and discuss delivery options.</p>
-              {/* Warranty Flex Banner */}
-              <div className="my-8 bg-gradient-to-r from-accent/20 to-transparent border border-accent/20 rounded-2xl p-6 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-accent/5 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <div className="flex items-center gap-4 relative z-10">
-                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 text-accent">
-                    <ShieldCheck size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-gray-900 font-bold text-lg leading-tight mb-1">Liam's Purity Guarantee</h3>
-                    <p className="text-gray-600 text-sm">
-                      <strong className="text-accent">100% Raw & Filtered</strong> + <strong className="text-accent">Laboratory Tested</strong>. This is our promise.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-col gap-4 mt-8">
-                <a 
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 rounded-xl font-bold text-lg transition-transform hover:-translate-y-1 shadow-[0_0_15px_rgba(37,211,102,0.2)]"
-                >
-                  <MessageCircle size={22} />
-                  WhatsApp Us Now
-                </a>
-                <a 
-                  href={`tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER || '+910000000000'}`}
-                  className="w-full flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-900 py-4 rounded-xl font-bold transition-colors"
-                >
-                  <Phone size={20} />
-                  Call {process.env.NEXT_PUBLIC_PHONE_NUMBER || "Us"}
-                </a>
-              </div>
+            <div className="mb-10 w-full">
+              <AddToCartButton product={product} />
             </div>
 
             <div className="space-y-10 order-last lg:order-none mt-10 lg:mt-0">

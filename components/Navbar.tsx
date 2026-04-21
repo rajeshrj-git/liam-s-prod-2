@@ -2,8 +2,28 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShoppingBag, Hexagon, Menu, X, MessageCircle } from "lucide-react";
+import { ShoppingBag, Hexagon, Menu, X, MessageCircle, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCartStore } from "@/lib/store/cartStore";
+
+function CartBadge() {
+  const [mounted, setMounted] = useState(false);
+  const getTotalQuantity = useCartStore((state) => state.getTotalQuantity);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const count = getTotalQuantity();
+  if (count === 0) return null;
+
+  return (
+    <span className="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+      {count}
+    </span>
+  );
+}
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,6 +73,10 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+          <Link href="/cart" className="relative text-gray-600 hover:text-accent transition-colors">
+            <ShoppingCart size={24} />
+            <CartBadge />
+          </Link>
           <a
             href={whatsappLink}
             target="_blank"
