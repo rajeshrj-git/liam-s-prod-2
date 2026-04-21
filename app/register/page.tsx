@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { UserCircle2 } from "lucide-react";
 import Link from "next/link";
 
-export default function RegisterPage() {
+function RegisterContent() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -137,5 +137,13 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen pt-24 flex items-center justify-center">Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }
