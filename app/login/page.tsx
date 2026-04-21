@@ -27,12 +27,11 @@ function LoginContent() {
 
     if (error) {
       toast.error(error.message);
+      setLoading(false);
     } else {
       toast.success("Login successful");
-      router.push(redirectParams);
-      router.refresh();
+      router.push(redirectParams === "/shop" ? "/products" : redirectParams);
     }
-    setLoading(false);
   };
 
   return (

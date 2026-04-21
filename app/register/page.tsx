@@ -59,14 +59,14 @@ function RegisterContent() {
         
       if (profileError) {
         toast.error("Account created, but profile update failed.");
+        setLoading(false);
       } else {
         toast.success("Account created successfully!");
-        router.push(redirectParams);
-        router.refresh();
+        router.push(redirectParams === "/shop" ? "/products" : redirectParams);
       }
+    } else {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
