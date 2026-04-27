@@ -20,17 +20,34 @@ function LoginContent() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (!data.session) {
+        toast.error("Please verify your account/email first.");
+        setLoading(false);
+        return;
+      }
+
+      toast.success("Login successful! Redirecting...");
+      const target = redirectParams === "/shop" ? "/products" : redirectParams;
+      
+      setTimeout(() => {
+        window.location.href = target;
+      }, 500);
+    } catch (err: any) {
+      console.error("Login error:", err);
+      toast.error("Something went wrong. Please try again.");
       setLoading(false);
-    } else {
-      toast.success("Login successful");
-      window.location.href = redirectParams === "/shop" ? "/products" : redirectParams;
     }
   };
 

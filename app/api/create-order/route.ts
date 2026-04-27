@@ -14,18 +14,30 @@ export async function POST(req: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          getAll() {
-            return cookieStore.getAll();
+          get(name: string) {
+            return cookieStore.get(name)?.value;
           },
-          setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
-            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+          set(name: string, value: string, options: CookieOptions) {
+            try {
+              cookieStore.set({ name, value, ...options, secure: process.env.NODE_ENV === 'production' });
+            } catch (error) {
+              // The `set` method was called from a Server Component.
+              // This can be ignored if you have middleware refreshing user sessions.
+            }
+          },
+          remove(name: string, options: CookieOptions) {
+            try {
+              cookieStore.set({ name, value: "", ...options, secure: process.env.NODE_ENV === 'production' });
+            } catch (error) {
+              // The `delete` method was called from a Server Component.
+            }
           },
         },
       }
     );
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
@@ -64,7 +76,7 @@ export async function POST(req: Request) {
     // Prepare draft order data to insert later on verify
     const dbOrder = {
       id: uuidv4(), // generate UUID for our DB
-      user_id: session.user.id,
+      user_id: user.id,
       items,
       total_quantity: totalQuantity,
       subtotal,
@@ -85,6 +97,20 @@ export async function POST(req: Request) {
       dbOrder,
     });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message });
+    if (error && error.response) {
+       console.error("API error response:", error.response);
+    }
+    console.error("Error creating order:", error);
+    
+    let errorMessage = "Unknown error occurred";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    } else if (error && typeof error === "object") {
+      errorMessage = JSON.stringify(error);
+    }
+
+    return NextResponse.json({ success: false, error: errorMessage });
   }
 }

@@ -34,9 +34,9 @@ export default function CheckoutPage() {
     let isMounted = true;
     
     const fetchProfile = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { user } } = await supabase.auth.getUser();
       
-      if (!session) {
+      if (!user) {
         if (isMounted) router.push("/login?redirect=/checkout");
         return;
       }
@@ -44,11 +44,11 @@ export default function CheckoutPage() {
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", session.user.id)
+        .eq("id", user.id)
         .single();
         
       if (data && isMounted) {
-        setProfile({ ...data, email: session.user.email });
+        setProfile({ ...data, email: user.email });
         setAddress({
           addressLine1: data.address_line1 || "",
           addressLine2: data.address_line2 || "",
@@ -144,11 +144,13 @@ export default function CheckoutPage() {
             if (verifyData.success) {
               toast.success("Payment successful! Order placed.");
               clearCart();
-              window.location.href = "/products";
+              router.refresh();
+              router.push("/products");
             } else {
-              toast.error("Payment verification failed");
+              toast.error(verifyData.error || "Payment verification failed");
             }
           } catch(e) {
+            console.error("Verification Error:", e);
             toast.error("An error occurred during verification.");
           }
         },

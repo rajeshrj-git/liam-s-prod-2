@@ -11,7 +11,8 @@ export default function CartPage() {
   const router = useRouter();
 
   const handleCheckout = () => {
-    router.push("/checkout");
+    // Bypass Next.js client-side router cache which might have cached an unauthenticated redirect.
+    window.location.href = "/checkout";
   };
 
   const formatPrice = (price: number) => {

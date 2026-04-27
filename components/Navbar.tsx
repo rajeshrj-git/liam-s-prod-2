@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShoppingBag, Hexagon, Menu, X, MessageCircle, ShoppingCart, UserCircle } from "lucide-react";
+import { ShoppingBag, Hexagon, Menu, X, MessageCircle, ShoppingCart, UserCircle, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/lib/store/cartStore";
 import { createClient } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function CartBadge() {
   const [mounted, setMounted] = useState(false);
@@ -30,8 +32,16 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
-
+  const router = useRouter();
   const supabase = createClient();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    toast.success("Logged out successfully");
+    router.push("/");
+    router.refresh();
+  };
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -95,9 +105,18 @@ export default function Navbar() {
             <CartBadge />
           </Link>
           {user ? (
-            <Link href="/admin" className="text-gray-600 hover:text-accent transition-colors" title="My Account">
-              <UserCircle size={24} />
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/admin" className="text-gray-600 hover:text-accent transition-colors" title="My Account">
+                <UserCircle size={24} />
+              </Link>
+              <button 
+                onClick={handleLogout}
+                className="text-gray-600 hover:text-red-500 transition-colors" 
+                title="Log out"
+              >
+                <LogOut size={22} />
+              </button>
+            </div>
           ) : (
             <Link href="/login" className="text-gray-600 hover:text-accent transition-colors" title="Log in">
               <UserCircle size={24} />
@@ -143,14 +162,26 @@ export default function Navbar() {
               </Link>
             ))}
             {user ? (
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-gray-600 hover:text-accent font-medium p-2"
-              >
-                <UserCircle size={20} />
-                <span>My Account</span>
-              </Link>
+              <>
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-gray-600 hover:text-accent font-medium p-2"
+                >
+                  <UserCircle size={20} />
+                  <span>My Account</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-red-500 hover:text-red-600 font-medium p-2 text-left"
+                >
+                  <LogOut size={20} />
+                  <span>Log Out</span>
+                </button>
+              </>
             ) : (
               <Link
                 href="/login"
